@@ -13,12 +13,12 @@ You can find `platform-impl.jar` in your intellij install dir inside `lib` dir.
 
 ## Docker
 
-To deploy *patcher* using a pre-built `Dockerfile` or ready image, follow the instructions in [separated repo](repo_link) (TBD).
+To deploy *patcher* using a pre-built `Dockerfile`, follow the instructions in [docker repo](https://github.com/zr9/intellij_patcher_docker).
 
 ## Supported versions
 
-[![intellij 2019.2](https://badgen.net/badge/intellij/2019.2/blue)]
-[![intellij 2020.1](https://badgen.net/badge/intellij/2020.1/blue)]
+![intellij 2019.2](https://badgen.net/badge/intellij/2019.2/blue)
+![intellij 2020.1](https://badgen.net/badge/intellij/2020.1/blue)
 
 ## Patches explanation & examples
 
