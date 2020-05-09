@@ -18,6 +18,10 @@
 
 ![](./4.webp)
 
+## 6 - Changes line numbers and icons order
+
+![](./6.webp)
+
 ## 9 - Reducing gap between areas (better with #4)
 
 Only affect some themes and configurations, so better try it by yourself
