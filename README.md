@@ -20,6 +20,12 @@ To deploy *patcher* using a pre-built `Dockerfile`, follow the instructions in [
 ![intellij 2019.2](https://badgen.net/badge/intellij/2019.2/blue)
 ![intellij 2020.1](https://badgen.net/badge/intellij/2020.1/blue)
 
+## Supported versions (reported by Users)
+
+![phpstorm 2019.2](https://badgen.net/badge/php/2019.2/blue)
+![phpstorm 2019.3](https://badgen.net/badge/php/2019.3/blue)
+![phpstorm 2020.1](https://badgen.net/badge/php/2020.1s/blue)
+
 ## Patches explanation & examples
 
 All explanations and examples [are here](./examples/examples.md)
