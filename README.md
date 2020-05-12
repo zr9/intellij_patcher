@@ -22,9 +22,9 @@ To deploy *patcher* using a pre-built `Dockerfile`, follow the instructions in [
 
 ## Supported versions (reported by Users)
 
-![phpstorm 2019.2](https://badgen.net/badge/php/2019.2/blue)
-![phpstorm 2019.3](https://badgen.net/badge/php/2019.3/blue)
-![phpstorm 2020.1](https://badgen.net/badge/php/2020.1s/blue)
+![phpstorm 2019.2](https://badgen.net/badge/phpstorm/2019.2/blue)
+![phpstorm 2019.3](https://badgen.net/badge/phpstorm/2019.3/blue)
+![phpstorm 2020.1](https://badgen.net/badge/phpstorm/2020.1/blue)
 
 ## Patches explanation & examples
 
