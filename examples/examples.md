@@ -26,6 +26,10 @@
 
 Only affect some themes and configurations, so better try it by yourself
 
+## 12 - Disabling remove from stack for tool windows(SLIDING/UNDOCKED only)
+
+Only affect tool windows which are in UNDOCKER/SLIDING state, in 2020 idea broken the way they working. With patch you will be able to hide window and then jump back to it, without jump back is have no effect.
+
 ## All - All together example
 
 ![](./all.webp)

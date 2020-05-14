@@ -3,18 +3,6 @@ import functions.v2020 as fn
 # !!! "\\" in entry_line is index of a found list, so starts with a "0" !!!
 # !!! also entry_line is a regex, but parsing on above goes first !!!
 
-# TODO:
-# 1) Patch to click area for EditorGutter [done]
-# 2) Update to depends [done]
-# 3) Checks on 2020.1 [done]
-# 4) Dialog update to present patches [done]
-# 5) Visual to github for README [done]
-# 6) License [done]
-# 7) Profit
-# 8) Finish patch descriptions [done]
-# 9) Put video on every patch separatly
-# 10) need test 4,5,7 along with all and separatelly
-
 classes = [
   {
     # Disabling auto scroll of editor
@@ -221,6 +209,23 @@ classes = [
         'find': ['Utf8 getIconsAreaWidth'],
         'entry_line': 'iadd',
         'exec': fn.editor_gutter_component_impl_p8
+      }
+    ]
+  },
+
+  {
+    # Disabling remove from stack for tool windows(SLIDING/UNDOCKED only)
+    'id': 12,
+    'file': 'platform-impl.jar',
+    'class': 'com/intellij/openapi/wm/impl/ToolWindowManagerImpl',
+    'method': 'setHiddenState',
+    'desc': 'Disabling remove from stack for tool windows(SLIDING/UNDOCKED only)',
+    'patch_data': [
+      {
+        'l_offset': [10, 40],
+        'find': ['rcall:Utf8 \(\)Lcom.*?ToolWindowType;-Utf8 getType', 'rfcall:Utf8 Lcom.*?ToolWindowType;-Utf8 SLIDING'],
+        'entry_line': 'aload_0',
+        'exec': fn.tool_window_manager_p2
       }
     ]
   },

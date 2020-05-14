@@ -44,6 +44,52 @@ def tool_window_manager_p1(l, l_prev, line, line_prev, found = []):
 
   return patch(' '*len(line))
 
+def tool_window_manager_p2(l, l_prev, line, line_prev, found = []):
+  cline = clean_line(line).strip()
+  line = clean_line(line)
+  return_l = 30
+
+  if cline == 'aload_0':
+    gd['current_l'] = int(l_prev)
+    gd['patch_started'] = True
+    gd['attr_table'] = []
+
+    spacing = line.count(' ')-1
+
+    nline = 'L'+str(gd['current_l']+1)+':'+' '*spacing+'aload_1\n'
+    nline += 'L'+str(gd['current_l']+2)+':'+' '*spacing+'invokevirtual ['+found[0]+']\n'
+    nline += 'L'+str(gd['current_l']+3)+':'+' '*spacing+'getstatic ['+found[1]+']\n'
+    nline += 'L'+str(gd['current_l']+4)+':'+' '*spacing+'if_acmpeq L'+str(return_l)+'\n'
+    nline += 'L'+str(gd['current_l']+5)+':'+line
+
+    gd['current_l'] += 5
+    gd['attr_table'].append([int(l), gd['current_l']])
+
+    return patch(nline)
+
+  if cline == 'return':
+    gd['attr_table'].append([int(l), return_l])
+
+    nline  = '.stack same\n'
+    nline += 'L'+str(return_l)+':'+line+'\n'
+
+    return patch(nline)
+
+  if len(cline) == 0:
+    gd['attr_table'].append([int(l), return_l+1])
+    attr_table = gd['attr_table']
+    gd.clear()
+
+    return patch('L'+str(return_l+1)+':'+line+'\n', True, attr_table)
+
+  if 'patch_started' in gd and gd['patch_started']:
+    gd['current_l'] += 1
+    gd['attr_table'].append([int(l), gd['current_l']])
+
+    return patch('L'+str(gd['current_l'])+':'+line)
+
+  return not_changed()
+
 def tool_brace_highlighting_handler_p1(l, l_prev, line, line_prev, found = []):
   m = re.search('ifeq L\d+', line)
 
