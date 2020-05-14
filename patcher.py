@@ -19,7 +19,7 @@ class Patcher:
 
   def get_method_boundaries(self, method_id):
     m = re.search(
-      '\.method\s+(?:(?:private|public)\s+)?(?:static\s+)?(?:synthetic\s+)?\['+method_id+'\].+?\.end method',
+      '\.method\s+(?:(?:private|public)\s+)?(?:static\s+)?(?:final\s+)?(?:synthetic\s+)?\['+method_id+'\].+?\.end method',
       self.methods_data,
       re.MULTILINE | re.DOTALL
     )
@@ -104,14 +104,24 @@ class Patcher:
     else:
       type = 'none'
 
-    if type == 'call':
+    if type in ['call', 'rcall', 'rfcall']:
       find = find.split('-')
+
+      if type in ['rcall', 'rfcall']:
+        find.reverse()
 
       const_id = list(map(self.reverse_const_search, find))
       call_name_id = self.search_for_call_name(const_id[0], const_id[1])
-      field_name_id = self.search_for_field_name(call_name_id)
 
-      return field_name_id
+      if type in ['call', 'rfcall']:
+        field_name_id = self.search_for_field_name(call_name_id)
+
+        return field_name_id
+      elif type == 'rcall':
+        field_name_id = self.search_for_method_call_id(call_name_id)
+
+        return field_name_id
+
     elif type == 'prim':
       const_id = self.reverse_const_search(re.escape(find))
       return const_id
