@@ -18,8 +18,17 @@ class Patcher:
     return m.start()
 
   def get_method_boundaries(self, method_id):
+    r_start = '\.method\s+(?:(?:private|public)\s+)?(?:static\s+)?(?:final\s+)?(?:synthetic\s+)?\['
+    r_end = '\].+?\.end method'
+
+    if re.search(':', self.method_name) != None:
+      _, const_id = self.method_name.split(':')
+
+      const_id = self.class_data['patch_data'][0]['found'][int(const_id.replace('\\', ''))]
+      r_end = '\]\s:\s\['+const_id+r_end
+
     m = re.search(
-      '\.method\s+(?:(?:private|public)\s+)?(?:static\s+)?(?:final\s+)?(?:synthetic\s+)?\['+method_id+'\].+?\.end method',
+      r_start+method_id+r_end,
       self.methods_data,
       re.MULTILINE | re.DOTALL
     )
@@ -50,8 +59,13 @@ class Patcher:
     self.methods_definition = self.file_content[start_offset:]
     self.methods_data = self.file_content[0:start_offset]
 
+    if re.search(':', self.method_name) != None:
+      method_name, const_id = self.method_name.split(':')
+    else:
+      method_name = self.method_name
+
     method_id = re.search(
-      '.const \[(\d+)\]\s+=\s+Utf8\s+' + re.escape(self.method_name),
+      '.const \[(\d+)\]\s+=\s+Utf8\s+' + re.escape(method_name),
       self.methods_definition
     ).group(1)
 
@@ -270,9 +284,9 @@ class Patcher:
 
   def patch(self):
     method_id = self.find_method_id()
-    self.b_m_start, self.b_m_end = self.get_method_boundaries(method_id)
-
     self.prepare_patch_data();
+
+    self.b_m_start, self.b_m_end = self.get_method_boundaries(method_id)
 
     self.file.seek(self.b_m_start)
 
