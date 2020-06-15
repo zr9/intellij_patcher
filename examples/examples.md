@@ -30,6 +30,10 @@ Only affect some themes and configurations, so better try it by yourself
 
 Only affect tool windows which are in UNDOCKER/SLIDING state, in 2020 idea broken the way they working. With patch you will be able to hide window and then jump back to it, without jump back is have no effect.
 
+## 13 - Changind autocomplete popup to SMART one from BASIC
+
+Only affect autocomplete popup behavour, changing it to SMART type always.
+
 ## All - All together example
 
 ![](./all.webp)

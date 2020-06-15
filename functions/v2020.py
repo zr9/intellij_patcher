@@ -324,3 +324,17 @@ def editor_gutter_component_impl_p8(l, l_prev, line, line_prev, found = []):
     return patch('L'+str(gd['current_l'])+':'+line)
 
   return not_changed()
+
+def auto_popup_controller_p1(l, l_prev, line, line_prev, found = []):
+  line = clean_line(line)
+
+  m = re.search('getstatic \[\d+\]', line)
+
+  if m != None:
+    spacing = line.count(' ')-2
+
+    nline = 'getstatic Field com/intellij/codeInsight/completion/CompletionType SMART Lcom/intellij/codeInsight/completion/CompletionType;\n'
+
+    return patch('L'+str(l)+':'+' '*spacing+nline, True)
+
+  return not_changed()

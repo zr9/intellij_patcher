@@ -229,4 +229,21 @@ classes = [
       }
     ]
   },
+
+  {
+    # Changind auto popup completion to SMART type
+    'id': 13,
+    'file': 'platform-impl.jar',
+    'class': 'com/intellij/codeInsight/AutoPopupControllerImpl',
+    'method': 'scheduleAutoPopup:\\0',
+    'desc': 'Changind autocomplete popup to SMART one from BASIC',
+    'patch_data': [
+      {
+        'l_offset': [0, 10],
+        'find': ['prim:Utf8 (Lcom/intellij/openapi/editor/Editor;)V'],
+        'entry_line': 'aload_0',
+        'exec': fn.auto_popup_controller_p1
+      }
+    ]
+  },
 ]
