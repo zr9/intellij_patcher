@@ -1,4 +1,4 @@
-import functions.v2020 as fn
+import functions.v2020_1 as fn
 
 # !!! "\\" in entry_line is index of a found list, so starts with a "0" !!!
 # !!! also entry_line is a regex, but parsing on above goes first !!!
@@ -64,7 +64,7 @@ classes = [
     'id': 3,
     'file': 'platform-impl.jar',
     'class': 'com/intellij/codeInsight/highlighting/BraceHighlightingHandler',
-    'method': 'lambda$null$5',
+    'method': 'lambda$showScopeHint$6',
     'desc': 'Removing tooltip which appears on top when cursor is on bracket',
     'patch_data': [
       {
@@ -148,7 +148,7 @@ classes = [
     'id': 8,
     'file': 'platform-impl.jar',
     'class': 'com/intellij/openapi/editor/impl/EditorGutterComponentImpl',
-    'method': 'lambda$paintIconRow$11',
+    'method': 'lambda$paintIconRow$9',
     'desc': 'Changes line numbers and icons order',
     'depends': [6],
     'patch_data': [
@@ -183,7 +183,7 @@ classes = [
     'id': 10,
     'file': 'platform-impl.jar',
     'class': 'com/intellij/openapi/editor/impl/EditorGutterComponentImpl',
-    'method': 'lambda$getPointInfo$17',
+    'method': 'lambda$getPointInfo$13',
     'desc': 'Changes line numbers and icons order',
     'depends': [6],
     'patch_data': [

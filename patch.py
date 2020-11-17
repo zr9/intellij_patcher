@@ -92,7 +92,8 @@ code, tag = d.menu(
   text="Choose the version you have",
   choices=[
     ("v2019", "2019.2"),
-    ("v2020", "2020.1"),
+    ("v2020_1", "2020.1"),
+    ("v2020_2", "2020.2"),
     ("exit", "Duck this shit I'm out :)")
   ],
   width=D_WIDTH,
