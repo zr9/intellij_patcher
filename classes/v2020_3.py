@@ -189,6 +189,7 @@ classes = [
     'patch_data': [
       {
         'l_offset': [35, 70],
+        'find': ['Utf8 getLineNumberAreaWidth'],
         'entry_line': 'iload 4',
         'exec': fn.editor_gutter_component_impl_p7
       }

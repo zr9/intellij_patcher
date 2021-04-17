@@ -255,14 +255,18 @@ def editor_gutter_component_impl_p7(l, l_prev, line, line_prev, found = []):
     if 'patch_started' not in gd:
       gd['current_l'] = int(l_prev)+1
       gd['patch_started'] = True
+      gd['attr_table'] = []
 
       spacing = line.count(' ')-1
 
       nline = 'L'+str(gd['current_l'])+':'+line
-      nline += 'L'+str(gd['current_l']+1)+':'+' '*spacing+'bipush 50\n'
-      nline += 'L'+str(gd['current_l']+2)+':'+' '*spacing+'iadd\n'
+      nline += 'L'+str(gd['current_l']+1)+':'+' '*spacing+'aload_0\n'
+      nline += 'L'+str(gd['current_l']+2)+':'+' '*spacing+'invokevirtual ['+found[0]+']\n'
+      nline += 'L'+str(gd['current_l']+3)+':'+' '*spacing+'iadd\n'
+      nline += 'L'+str(gd['current_l']+4)+':'+' '*spacing+'bipush 8\n'
+      nline += 'L'+str(gd['current_l']+5)+':'+' '*spacing+'iadd\n'
 
-      gd['current_l'] += 2
+      gd['current_l'] += 5
 
       return patch(nline)
 
@@ -270,10 +274,11 @@ def editor_gutter_component_impl_p7(l, l_prev, line, line_prev, found = []):
       spacing = line.count(' ')-1
 
       nline = 'L'+str(gd['current_l']+1)+':'+line
-      nline += 'L'+str(gd['current_l']+2)+':'+' '*spacing+'bipush 30\n'
-      nline += 'L'+str(gd['current_l']+3)+':'+' '*spacing+'iadd\n'
+      nline += 'L'+str(gd['current_l']+2)+':'+' '*spacing+'aload_0\n'
+      nline += 'L'+str(gd['current_l']+3)+':'+' '*spacing+'invokevirtual ['+found[0]+']\n'
+      nline += 'L'+str(gd['current_l']+4)+':'+' '*spacing+'iadd\n'
 
-      gd['current_l'] += 3
+      gd['current_l'] += 4
 
       return patch(nline)
 
@@ -281,11 +286,14 @@ def editor_gutter_component_impl_p7(l, l_prev, line, line_prev, found = []):
   if 'patch_started' in gd and gd['patch_started']:
     gd['current_l'] += 1
 
-    if cline == 'iload 4':
-      l = gd['current_l']
+    if cline == 'aload 7':
+      l_i = gd['current_l']
+
+      gd['attr_table'].append([int(l), l_i])
+      attr_table = gd['attr_table']
       gd.clear()
 
-      return patch('L'+str(l)+':'+line, True)
+      return patch('L'+str(l_i)+':'+line, True, attr_table)
 
     return patch('L'+str(gd['current_l'])+':'+line)
 
