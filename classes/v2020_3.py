@@ -247,4 +247,21 @@ classes = [
       }
     ]
   },
+
+  {
+    # Removing space from auto complete characters
+    'id': 14,
+    'file': 'platform-impl.jar',
+    'class': 'com/intellij/codeInsight/template/impl/LiveTemplateCharFilter',
+    'method': 'acceptChar',
+    'desc': 'Removing space from auto complete characters',
+    'patch_data': [
+      {
+        'l_offset': [0, 15],
+        'find': ['rfcall:Utf8 Lcom.*CharFilter\$Result;-Utf8 HIDE_LOOKUP'],
+        'entry_line': 'astore 4',
+        'exec': fn.auto_popup_controller_p2
+      }
+    ]
+  },
 ]

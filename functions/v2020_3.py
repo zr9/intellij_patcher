@@ -346,3 +346,47 @@ def auto_popup_controller_p1(l, l_prev, line, line_prev, found = []):
     return patch('L'+str(l)+':'+' '*spacing+nline, True)
 
   return not_changed()
+
+def auto_popup_controller_p2(l, l_prev, line, line_prev, found = []):
+  line = clean_line(line)
+  cline = clean_line(line).strip()
+
+  if cline == 'aload 4':
+    spacing = line.count(' ')-1
+
+    gd['current_l'] = int(l_prev)
+    gd['attr_table'] = []
+
+    nline = 'L'+str(gd['current_l']+1)+':'+' '*spacing+'iload_1\n'
+    nline += 'L'+str(gd['current_l']+2)+':'+' '*spacing+'bipush 32\n'
+    nline += 'L'+str(gd['current_l']+3)+':'+' '*spacing+'if_icmpne L'+str(gd['current_l']+6)+'\n'
+    nline += 'L'+str(gd['current_l']+4)+':'+' '*spacing+'getstatic ['+found[0]+']\n'
+    nline += 'L'+str(gd['current_l']+5)+':'+' '*spacing+'areturn\n'
+    nline += 'L'+str(gd['current_l']+6)+':'+line
+
+
+    gd['current_l'] += 6
+
+    return patch(nline)
+
+  if re.search('instanceof \[\d+\]', line) != None:
+    l = gd['current_l']+1
+
+    return patch('L'+str(l)+':'+line)
+
+  if re.search('ifeq L\d+', line) != None:
+    l = gd['current_l']+2
+    gd.clear()
+
+    return patch('L'+str(l)+':'+line, True)
+
+  # m = re.search('getstatic \[\d+\]', line)
+
+  # if m != None:
+  #   spacing = line.count(' ')-2
+
+  #   nline = 'getstatic Field com/intellij/codeInsight/completion/CompletionType SMART Lcom/intellij/codeInsight/completion/CompletionType;\n'
+
+  #   return patch('L'+str(l)+':'+' '*spacing+nline, True)
+
+  return not_changed()
